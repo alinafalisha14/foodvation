@@ -63,6 +63,13 @@ $list_resto = mysqli_query($koneksi, "SELECT * FROM restoran");
     </nav>
 
     <div class="container" style="margin-top:20px;">
+
+    <div style="margin-bottom: 20px; padding: 10px; background: #f8f9fa; border-radius: 5px;">
+            <span style="font-weight:bold; margin-right:15px;">Akses Master:</span>
+            <a href="kelola_users.php" style="background:#673ab7; color:white; padding:8px 15px; text-decoration:none; border-radius:4px; font-size:14px; font-weight:bold; margin-right: 10px;">👥 Kelola Pengguna</a>
+            <a href="kelola_restoran.php" style="background:#ff9800; color:white; padding:8px 15px; text-decoration:none; border-radius:4px; font-size:14px; font-weight:bold;">🏪 Kelola Master Restoran</a>
+        </div>
+
         <h2>Panel Kelola Data Restoran</h2>
         <p style="color:#666; margin-bottom:15px;">Halaman khusus admin untuk mengelola entitas restoran (Tanpa modul transaksi/order).</p>
         
