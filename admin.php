@@ -57,16 +57,16 @@ $list_resto = mysqli_query($koneksi, "SELECT * FROM restoran");
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
-    <nav class="navbar" style="background:#333;">
-        <a href="dashboard.php">⬅️ Dashboard Utama</a>
-        <span style="color:#4CAF50; font-weight:bold;">🛡️ ADMINISTRATOR MODE</span>
+    <nav class="navbar" style="background:#333; display: flex; align-items: center; justify-content: space-between; padding: 10px 20px;">
+        <a href="dashboard.php" style="color:white; text-decoration:none; font-weight:bold;">⬅️ Dashboard Utama</a>
+        <span style="color:#4CAF50; font-weight:bold;" >🛡️ ADMINISTRATOR MODE</span>
     </nav>
 
-    <div class="container">
+    <div class="container" style="margin-top:20px;">
         <h2>Panel Kelola Data Restoran</h2>
         <p style="color:#666; margin-bottom:15px;">Halaman khusus admin untuk mengelola entitas restoran (Tanpa modul transaksi/order).</p>
         
-        <?php if($pesan) echo "<div class='alert' style='background:#c8e6c9; color:#2e7d32;'>$pesan</div>"; ?>
+        <?php if($pesan) echo "<div class='alert' style='background:#c8e6c9; color:#2e7d32; padding:10px; margin-bottom:15px; border-radius:4px;'>$pesan</div>"; ?>
         
         <div style="margin-bottom: 15px; text-align: right;">
             <a href="admin.php?aksi=tambah" style="background:#4CAF50; color:white; padding:10px 15px; text-decoration:none; border-radius:5px; font-weight:bold;">➕ Tambah Restoran Baru</a>
@@ -77,37 +77,43 @@ $list_resto = mysqli_query($koneksi, "SELECT * FROM restoran");
                 <th style="padding:12px; width:60px;">ID</th>
                 <th style="padding:12px;">Nama Restoran</th>
                 <th style="padding:12px;">Alamat</th>
-                <th style="padding:12px; text-align:center; width:160px;">Aksi CRUD</th>
+                <th style="padding:12px; text-align:center; width:420px;">Aksi CRUD</th>
             </tr>
             <?php while($r = mysqli_fetch_assoc($list_resto)): ?>
             <tr>
                 <td style="padding:12px;"><?= $r['id_restoran']; ?></td>
                 <td style="padding:12px;"><b><?= $r['nama_restoran']; ?></b></td>
                 <td style="padding:12px;"><?= $r['alamat']; ?></td>
-                <td style="padding:12px; text-align:center;">
-                    <a href="admin.php?edit=<?= $r['id_restoran']; ?>" style="background:#ff9800; color:white; padding:6px 12px; text-decoration:none; border-radius:4px; font-size:14px;">Edit</a>
-                    <a href="admin.php?hapus=<?= $r['id_restoran']; ?>" onclick="return confirm('Yakin ingin menghapus restoran ini?');" style="background:#f44336; color:white; padding:6px 12px; text-decoration:none; border-radius:4px; font-size:14px; margin-left:5px;">Hapus</a>
+                <td style="padding:12px;">
+                    <!-- Wrapper Flexbox agar tombol sejajar rapi ke samping -->
+                    <div style="display: flex; gap: 6px; justify-content: center; align-items: center; flex-wrap: nowrap;">
+                        <a href="Menu.php?id_restoran=<?= $r['id_restoran']; ?>" style="background:#2196f3; color:white; padding:6px 10px; text-decoration:none; border-radius:4px; font-size:13px; font-weight:bold; white-space: nowrap;">🍔 Kelola Menu</a>
+                        <a href="Meja.php?id_restoran=<?= $r['id_restoran']; ?>" style="background:#4caf50; color:white; padding:6px 10px; text-decoration:none; border-radius:4px; font-size:13px; font-weight:bold; white-space: nowrap; margin-right: 10px;">🪑 Kelola Meja</a>
+                        
+                        <a href="admin.php?edit=<?= $r['id_restoran']; ?>" style="background:#ff9800; color:white; padding:6px 12px; text-decoration:none; border-radius:4px; font-size:14px; white-space: nowrap;">Edit</a>
+                        <a href="admin.php?hapus=<?= $r['id_restoran']; ?>" onclick="return confirm('Yakin ingin menghapus restoran ini?');" style="background:#f44336; color:white; padding:6px 12px; text-decoration:none; border-radius:4px; font-size:14px; white-space: nowrap;">Hapus</a>
+                    </div>
                 </td>
             </tr>
             <?php endwhile; ?>
         </table>
 
         <?php if(isset($_GET['aksi']) && $_GET['aksi'] == 'tambah'): ?>
-        <div class="form-container" style="max-width:100%; margin-top:30px; border-left:4px solid #4CAF50;">
+        <div class="form-container" style="max-width:100%; margin-top:30px; border-left:4px solid #4CAF50; background:#f9f9f9; padding:20px; border-radius:4px;">
             <div style="display:flex; justify-content:space-between; align-items:center;">
                 <h3 style="color:#2e7d32;">Input Restoran Baru</h3>
                 <a href="admin.php" style="color:#f44336; text-decoration:none; font-weight:bold;">✕ Tutup Form</a>
             </div>
             <form action="admin.php" method="POST" style="margin-top:15px;">
-                <div class="form-group">
-                    <label>Nama Restoran</label>
-                    <input type="text" name="nama_restoran" placeholder="Contoh: Restoran Sedap Malam" required>
+                <div class="form-group" style="margin-bottom:10px;">
+                    <label style="display:block; margin-bottom:5px;">Nama Restoran</label>
+                    <input type="text" name="nama_restoran" placeholder="Contoh: Restoran Sedap Malam" required style="width:100%; padding:8px;">
                 </div>
-                <div class="form-group">
-                    <label>Alamat Lengkap</label>
-                    <input type="text" name="alamat" placeholder="Contoh: Jl. Raya Universitas No. 5" required>
+                <div class="form-group" style="margin-bottom:15px;">
+                    <label style="display:block; margin-bottom:5px;">Alamat Lengkap</label>
+                    <input type="text" name="alamat" placeholder="Contoh: Jl. Raya Universitas No. 5" required style="width:100%; padding:8px;">
                 </div>
-                <button type="submit" name="tambah_resto" class="btn-submit" style="background:#4CAF50;">Simpan Data Restoran</button>
+                <button type="submit" name="tambah_resto" class="btn-submit" style="background:#4CAF50; color:white; border:none; padding:10px 15px; border-radius:4px; cursor:pointer; font-weight:bold;">Simpan Data Restoran</button>
             </form>
         </div>
         <?php endif; ?>
@@ -117,22 +123,22 @@ $list_resto = mysqli_query($koneksi, "SELECT * FROM restoran");
             $id_ed = (int)$_GET['edit'];
             $target = mysqli_fetch_assoc(mysqli_query($koneksi, "SELECT * FROM restoran WHERE id_restoran=$id_ed"));
         ?>
-        <div class="form-container" style="max-width:100%; margin-top:30px; border-left:4px solid #ff9800;">
+        <div class="form-container" style="max-width:100%; margin-top:30px; border-left:4px solid #ff9800; padding:20px; border-radius:4px;">
             <div style="display:flex; justify-content:space-between; align-items:center;">
                 <h3 style="color:#e65100;">Edit Informasi: <?= $target['nama_restoran']; ?></h3>
                 <a href="admin.php" style="color:#f44336; text-decoration:none; font-weight:bold;">✕ Tutup Form</a>
             </div>
             <form action="admin.php" method="POST" style="margin-top:15px;">
                 <input type="hidden" name="id_restoran" value="<?= $target['id_restoran']; ?>">
-                <div class="form-group">
-                    <label>Nama Restoran</label>
-                    <input type="text" name="nama_restoran" value="<?= $target['nama_restoran']; ?>" required>
+                <div class="form-group" style="margin-bottom:10px;">
+                    <label style="display:block; margin-bottom:5px;">Nama Restoran</label>
+                    <input type="text" name="nama_restoran" value="<?= $target['nama_restoran']; ?>" required style="width:100%; padding:8px;">
                 </div>
-                <div class="form-group">
-                    <label>Alamat Lengkap</label>
-                    <input type="text" name="alamat" value="<?= $target['alamat']; ?>" required>
+                <div class="form-group" style="margin-bottom:15px;">
+                    <label style="display:block; margin-bottom:5px;">Alamat Lengkap</label>
+                    <input type="text" name="alamat" value="<?= $target['alamat']; ?>" requiredstyle ="width:100%; padding:8px;">
                 </div>
-                <button type="submit" name="update_resto" class="btn-submit" style="background:#ff9800;">Simpan Perubahan</button>
+                <button type="submit" name="update_resto" class="btn-submit" style="background:#ff9800; color:white; border:none; padding:10px 15px; border-radius:4px; cursor:pointer; font-weight:bold;">Simpan Perubahan</button>
             </form>
         </div>
         <?php endif; ?>

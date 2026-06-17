@@ -20,19 +20,24 @@ $query_resto = mysqli_query($koneksi, "SELECT * FROM restoran");
 </head>
 <body>
     <nav class="navbar">
-        <a href="dashboard.php">🍽️ FOODVATION</a>
+        <a href="dashboard.php" style="text-decoration:none; color:inherit; font-weight:bold;">🍽️ FOODVATION</a>
         <div>
             <span>Halo, <?= $_SESSION['email']; ?> (<b><?= strtoupper($_SESSION['role']); ?></b>)</span>
+           
+            <!-- Link ke Halaman Baru -->
+            <a href="profil.php" style="margin-left:15px; text-decoration:none; font-weight:bold; color:#03a9f4;">👤 Profil Saya</a>
+            <a href="riwayat.php" style="margin-left:15px; text-decoration:none; font-weight:bold; color:#ff9800;">📋 Riwayat Booking</a>
+
             <?php if($_SESSION['role'] === 'admin'): ?>
                 <a href="admin.php" style="margin-left:15px; text-decoration:underline;">Kelola Resto</a>
             <?php endif; ?>
-            <a href="logout.php" class="btn-logout" style="margin-left:10px;">Logout</a>
+            <a href="logout.php" class="btn-logout" style="margin-left:10px; color:#4CAF50; font-weight:bold;">Logout</a>
         </div>
     </nav>
 
-    <div class="container">
+    <div class="container" style="margin-top: 20px;">
         <h2>Daftar Restoran Pilihan</h2>
-        <p>Pilih restoran untuk melihat menu dan melakukan booking meja.</p>
+        <p style="color:#666; margin-bottom:20px;">Pilih restoran untuk melihat menu dan melakukan booking meja.</p>
         
         <div class="grid-cards">
             <?php while($resto = mysqli_fetch_assoc($query_resto)): ?>
