@@ -38,6 +38,12 @@ $query_resto = mysqli_query($koneksi, "SELECT * FROM restoran");
     <div class="container" style="margin-top: 20px;">
         <h2>Daftar Restoran Pilihan</h2>
         <p style="color:#666; margin-bottom:20px;">Pilih restoran untuk melihat menu dan melakukan booking meja.</p>
+        <div style="margin-bottom: 20px;">
+    <form action="cari_resto.php" method="POST" style="display: flex; gap: 10px;">
+        <input type="text" name="keyword" placeholder="Cari nama restoran..." style="padding: 8px; width: 250px; border-radius: 4px; border: 1px solid #ccc;">
+        <button type="submit" style="background: #2196f3; color: white; padding: 8px 15px; border: none; border-radius: 4px; cursor: pointer; font-weight: bold;">Cari via API</button>
+    </form>
+</div>
         
         <div class="grid-cards">
             <?php while($resto = mysqli_fetch_assoc($query_resto)): ?>
