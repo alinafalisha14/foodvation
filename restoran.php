@@ -12,7 +12,7 @@ $id_restoran = isset($_GET['id']) ? (int)$_GET['id'] : 0;
 // -------------------------------------------------------------------------
 // METHOD 1: GET (READ DATA RESTORAN & MENU & MEJA)
 // -------------------------------------------------------------------------
-if ($_SERVER['REQUEST_METHOD'] == 'GET' && $id_restoran > 0) {
+if ($id_restoran > 0) {
     // Ambil Profil Restoran
     $q_resto = mysqli_query($koneksi, "SELECT * FROM restoran WHERE id_restoran = $id_restoran");
     $data_resto = mysqli_fetch_assoc($q_resto);
@@ -53,7 +53,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['proses_reservasi'])) {
     try {
         // A. INSERT KE TABEL INDUK: reservasi
         $sql_rsv = "INSERT INTO reservasi (no_reservasi, user_id, restoran_id, meja_id, tanggal_reservasi, waktu_reservasi) 
-                    VALUES ('$no_rsv', $user_id, $nama_pemesan, $resto_id, $meja_id, '$tanggal', '$waktu')";
+                    VALUES ('$no_rsv', $user_id, $resto_id, $meja_id, '$tanggal', '$waktu')";
         mysqli_query($koneksi, $sql_rsv);
         
         // Tangkap ID Reservasi yang baru saja di-generate secara otomatis
@@ -171,7 +171,7 @@ $default_no_rsv = "RSV-" . date("Ymd") . "-" . rand(100,999);
                             </div>
                             <div class="form-group">
                                 <label>Nama pemesan</label>
-                                <input type="text" value="User ID: <?= isset($_SESSION['user_id']) ? $_SESSION['user_id'] : ''; ?> (<?= isset($_SESSION['email']) ? $_SESSION['email'] : ''; ?>)" readonly style="background:#eee;">
+                                <input type="text" name="nama_pemesan" value="<?= isset($_SESSION['email']) ? $_SESSION['email'] : 'Tanpa Nama'; ?>" readonly style="background:#eee;">
                             </div>
                         </div>
 
